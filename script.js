@@ -52,10 +52,12 @@ class Slider {
         }
     }
 }
+
 document.addEventListener('DOMContentLoaded', function() {
     new Slider('sliderWeb', 'sliderWebDots', 4000);
     new Slider('sliderAI', 'sliderAIDots', 5000);
 });
+
 document.querySelectorAll('.faq-item').forEach(function(item) {
     var question = item.querySelector('.faq-question');
     if (!question) return;
@@ -76,6 +78,7 @@ document.querySelectorAll('.faq-item').forEach(function(item) {
     question.setAttribute('role', 'button');
     question.setAttribute('tabindex', '0');
 });
+
 function selectSpecialist(specialist) {
     var radio = document.getElementById('sp-' + specialist);
     if (radio) radio.checked = true;
@@ -88,6 +91,7 @@ function selectSpecialist(specialist) {
     bioDiv.innerHTML = bios[specialist] || '';
     bioDiv.className = 'specialist-bio active';
 }
+
 function updatePaymentInfo(method) {
     var info = document.getElementById('paymentInfo');
     if (!info) return;
@@ -99,6 +103,7 @@ function updatePaymentInfo(method) {
         info.innerHTML = '<i class="fas fa-check-circle" aria-hidden="true"></i><span>عند دفع المبلغ كاملاً، تحصل على خصم 3% على إجمالي قيمة المشروع</span>';
     }
 }
+
 function sendOrderToWhatsApp(event) {
     event.preventDefault();
     var name = document.getElementById('clientName').value.trim();
@@ -143,6 +148,9 @@ function sendOrderToWhatsApp(event) {
         console.error('WhatsApp error:', error);
     }
 }
+
+document.getElementById('orderForm').addEventListener('submit', sendOrderToWhatsApp);
+
 document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
     anchor.addEventListener('click', function(e) {
         var href = this.getAttribute('href');
@@ -154,6 +162,7 @@ document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         }
     });
 });
+
 var header = document.querySelector('.site-header');
 if (header) {
     window.addEventListener('scroll', function() {
@@ -168,7 +177,8 @@ if (header) {
         }
     });
 }
-var revealElements = document.querySelectorAll('.glass-card, .service-card-wavy, .ai-card, .specialist-card, .faq-item, .follow-card, .order-form-wrapper');
+
+var revealElements = document.querySelectorAll('.glass-card, .service-card-wavy, .ai-card, .specialist-card, .faq-item, .follow-card, .order-form-wrapper, .job-card, .blog-card, .stat-box, .showcase-img');
 if (revealElements.length) {
     revealElements.forEach(function(el) {
         el.classList.add('reveal');
@@ -188,22 +198,11 @@ if (revealElements.length) {
         revealObserver.observe(el);
     });
 }
-document.addEventListener('contextmenu', function(e) {
-    e.preventDefault();
-    return false;
-});
-document.addEventListener('copy', function(e) {
-    e.preventDefault();
-    return false;
-});
-document.addEventListener('cut', function(e) {
-    e.preventDefault();
-    return false;
-});
-document.addEventListener('dragstart', function(e) {
-    e.preventDefault();
-    return false;
-});
+
+document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+document.addEventListener('copy', function(e) { e.preventDefault(); return false; });
+document.addEventListener('cut', function(e) { e.preventDefault(); return false; });
+document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; });
 document.addEventListener('selectstart', function(e) {
     var tag = (e.target.tagName || '').toLowerCase();
     if (tag !== 'input' && tag !== 'textarea') {
@@ -211,6 +210,7 @@ document.addEventListener('selectstart', function(e) {
         return false;
     }
 });
+
 document.addEventListener('keydown', function(e) {
     var tag = (e.target.tagName || '').toLowerCase();
     var isInput = tag === 'input' || tag === 'textarea';
@@ -233,3 +233,73 @@ document.addEventListener('keydown', function(e) {
         }
     }
 });
+
+var blogPosts = {
+    1: {
+        title: 'إزاي تختار شركة برمجة موثوقة لمشروعك؟',
+        meta: 'Tips • 5 min read',
+        content: '<p>اختيار شركة البرمجة هو قرار مصيري لأي مشروع رقمي. الاختيار الخطأ ممكن يكلفك وقت وفلوس كتير. تعرف على أهم المعايير.</p><h3>1. شوف أعمالهم السابقة</h3><p>اطلب منهم يعرضوا مشاريع فعلية اتعملت، ويفضل تكون مشاريع شغالة تقدر تدخل عليها وتشوفها بنفسك.</p><h3>2. اسأل عن فريق العمل</h3><p>هل هما فريق واحد ولا بيوزعوا الشغل لفريلانسرز؟ الفريق الثابت عادة بيقدم جودة أفضل واستمرارية أعلى.</p><h3>3. اتأكد من الدعم الفني بعد التسليم</h3><p>أي مشروع برمجي محتاج دعم بعد التسليم. اسأل عن مدة الدعم المجاني وتكلفة الدعم بعدها.</p><h3>4. اتفق على طريقة الدفع بوضوح</h3><p>الشركات الموثوقة بتقبل دفع جزئي قبل البدء والباقي بعد التسليم، وبتحط كل حاجة في عقد واضح.</p><h3>5. اسأل عن المدة الزمنية</h3><p>الوعود السريعة جداً مش دايماً حقيقية. اسأل عن مدة تنفيذ كل مرحلة بوضوح.</p><h3>6. شوف آراء العملاء السابقين</h3><p>لو شركة محترمة، هتلاقي عملاء سابقين بيتكلموا عنها. اسأل عنهم وقيم تجربة التعامل.</p><p><strong>الخلاصة:</strong> متستعجلش القرار. خد وقتك واتأكد من كل التفاصيل قبل ما تبدأ.</p>'
+    },
+    2: {
+        title: 'الفرق بين الموقع والمتجر الإلكتروني',
+        meta: 'E-Commerce • 4 min read',
+        content: '<p>كتير من العملاء بيسألونا: أيه الفرق بين الموقع والمتجر الإلكتروني؟ وإيه الأنسب لمشروعي؟</p><h3>الموقع التعريفي (Website)</h3><ul><li>بيعرض معلومات عن شركتك وخدماتك</li><li>الهدف: بناء الثقة وتعريف العملاء بيك</li><li>مفيهوش سلة شراء أو دفع أونلاين</li><li>مثال: موقع شركة عقارات، عيادة، مطعم</li></ul><h3>المتجر الإلكتروني (E-commerce)</h3><ul><li>بيعرض منتجات بأسعار وصور</li><li>فيه سلة شراء ودفع أونلاين</li><li>بيتعامل مع المخزون والشحن</li><li>مثال: متجر ملابس، إلكترونيات، كتب</li></ul><h3>امتى تختار موقع؟</h3><p>لو بيزنسك خدمي (زي عيادة، مكتب محاماة، شركة مقاولات)، فالموقع التعريفي كفاية وهو الأنسب.</p><h3>امتى تختار متجر؟</h3><p>لو بتبيع منتجات فعلية وعايز توصل لعملاء أونلاين بشكل مباشر، فالمتجر هو اللي هيكبر مبيعاتك.</p><p><strong>نصيحة:</strong> ابدأ بحاجة واحدة وركّز عليها، وبعدين ممكن تتوسع.</p>'
+    },
+    3: {
+        title: '5 علامات تخليك تعرف إن شركتك محتاجة أتمتة',
+        meta: 'AI • 6 min read',
+        content: '<p>الأتمتة مش رفاهية، هي ضرورة لأي شركة عايزة تكبر. تعرف على العلامات التي تدل على أن شركتك محتاجة أتمتة فوراً.</p><h3>1. موظفينك بيقضوا وقت طويل في مهام متكررة</h3><p>لو فريقك بيقضي ساعات في شغل يدوي زي إدخال بيانات أو الرد على نفس الأسئلة، فده وقت ضايع كان ممكن يروح لمهام أهم.</p><h3>2. بترد على نفس الأسئلة من العملاء كل يوم</h3><p>لو أكتر من 50% من أسئلة العملاء هي نفس الأسئلة، محتاج شات بوت ذكي يرد عليها تلقائياً.</p><h3>3. عندك بيانات كتير بس مش عارف تستفيد منها</h3><p>لو جمعت بيانات عملاء ومبيعات بس مش عارف تطلع منها معلومات مفيدة، محتاج نظام تحليل بيانات.</p><h3>4. بتخسر عملاء بسبب بطء الرد</h3><p>لو عميل راسلك الساعة 11 بالليل ومحدش رد عليه، فممكن يكون راح لمنافس. الأتمتة بتحل ده.</p><h3>5. مفيش تكامل بين الأنظمة اللي بتستخدمها</h3><p>لو عندك نظام للمبيعات ونظام للمخزون ونظام للمحاسبة وكل واحد منفصل، محتاج تربطهم بأتمتة.</p><p><strong>الخلاصة:</strong> الأتمتة بتوفر وقت، بتقلل أخطاء، وبتحسن تجربة العملاء. الشركات اللي بتبدأ فيها بدري هي اللي بتكسب السوق.</p>'
+    },
+    4: {
+        title: 'أهمية الذكاء الاصطناعي في تطوير الأعمال 2026',
+        meta: 'Tech • 5 min read',
+        content: '<p>الذكاء الاصطناعي بقى جزء أساسي من أي شركة عايزة تنمو في 2026. تعرف على أهميته وكيف يساعدك.</p><h3>خدمة عملاء أفضل</h3><p>الشات بوتات الذكية بترد على العملاء في أي وقت، بأي لغة، وبتفهم احتياجاتهم. عملاء كتير بيفضلوا الشات بوت على الانتظار.</p><h3>تحليل بيانات أدق</h3><p>الذكاء الاصطناعي بيكشف أنماط في بياناتك مش هتلاقيها بالعين المجردة، وده بيساعدك في قرارات أفضل.</p><h3>أتمتة المهام المتكررة</h3><p>المهام زي إدخال بيانات، إرسال إيميلات، وتصنيف الطلبات بقت تتعمل تلقائياً بدون تدخل بشري.</p><h3>تسويق أذكى</h3><p>الذكاء الاصطناعي بيتعلم سلوك عملائك وبيقدم لهم إعلانات ومنتجات مناسبة لهم بالظبط.</p><h3>تقليل التكاليف</h3><p>الأتمتة بتوفر تكلفة الموظفين على المهام المتكررة، والفلوس دي تقدر تستثمرها في تطوير البيزنس.</p><p><strong>الخلاصة:</strong> الذكاء الاصطناعي مش بس للشركات الكبيرة، أي شركة صغيرة أو متوسطة تقدر تستفيد منه، والمستقبل لمين يبدأ بدري.</p>'
+    }
+};
+
+function openBlogPost(postId) {
+    var post = blogPosts[postId];
+    if (!post) return;
+    var modal = document.getElementById('blogModal');
+    var body = document.getElementById('blogModalBody');
+    if (!modal || !body) return;
+    body.innerHTML = '<h2>' + post.title + '</h2><div class="modal-meta">' + post.meta + '</div>' + post.content;
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeBlogModal() {
+    var modal = document.getElementById('blogModal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.blog-card').forEach(function(card) {
+    card.addEventListener('click', function() {
+        var id = this.getAttribute('data-post');
+        if (id) openBlogPost(id);
+    });
+    card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            var id = this.getAttribute('data-post');
+            if (id) openBlogPost(id);
+        }
+    });
+});
+
+var blogModal = document.getElementById('blogModal');
+if (blogModal) {
+    var closeBtn = blogModal.querySelector('.blog-modal-close');
+    var overlay = blogModal.querySelector('.blog-modal-overlay');
+    if (closeBtn) closeBtn.addEventListener('click', closeBlogModal);
+    if (overlay) overlay.addEventListener('click', closeBlogModal);
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && blogModal.classList.contains('active')) {
+            closeBlogModal();
+        }
+    });
+                }
