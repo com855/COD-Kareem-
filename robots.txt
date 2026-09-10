@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://c0d.com/sitemap.xml
+
+Sitemap: https://c0d-digital.vercel.app/sitemap.xml
