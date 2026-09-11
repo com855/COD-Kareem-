@@ -149,7 +149,10 @@ function sendOrderToWhatsApp(event) {
     }
 }
 
-document.getElementById('orderForm').addEventListener('submit', sendOrderToWhatsApp);
+var orderForm = document.getElementById('orderForm');
+if (orderForm) {
+    orderForm.addEventListener('submit', sendOrderToWhatsApp);
+}
 
 document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
     anchor.addEventListener('click', function(e) {
@@ -302,4 +305,83 @@ if (blogModal) {
             closeBlogModal();
         }
     });
-                }
+}
+
+var openJobFormBtn = document.getElementById('openJobForm');
+var jobFormWrapper = document.getElementById('jobFormWrapper');
+
+if (openJobFormBtn && jobFormWrapper) {
+    openJobFormBtn.addEventListener('click', function() {
+        var isOpen = jobFormWrapper.classList.contains('active');
+        if (isOpen) {
+            jobFormWrapper.classList.remove('active');
+            this.innerHTML = '<i class="fas fa-user-plus" aria-hidden="true"></i> قدّم على الوظيفة الآن';
+            this.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            jobFormWrapper.classList.add('active');
+            this.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i> إغلاق النموذج';
+            setTimeout(function() {
+                jobFormWrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 150);
+        }
+    });
+}
+
+function sendJobApplicationToWhatsApp(event) {
+    event.preventDefault();
+    var name = document.getElementById('jobName').value.trim();
+    var phone = document.getElementById('jobPhone').value.trim();
+    var email = document.getElementById('jobEmail').value.trim();
+    var position = document.getElementById('jobPosition').value;
+    var experience = document.getElementById('jobExperience').value.trim();
+    var city = document.getElementById('jobCity').value.trim();
+    var skills = document.getElementById('jobSkills').value.trim();
+    var portfolio = document.getElementById('jobPortfolio').value.trim();
+    var certificates = document.getElementById('jobCertificates').value.trim() || 'غير محدد';
+    var cv = document.getElementById('jobCV').value.trim();
+    var linkedin = document.getElementById('jobLinkedIn').value.trim() || 'غير محدد';
+    var message = document.getElementById('jobMessage').value.trim() || 'لا يوجد';
+
+    if (!name || !phone || !email || !position || !experience || !city || !skills || !portfolio || !cv) {
+        alert('يرجى ملء جميع الحقول الإلزامية (*)');
+        return;
+    }
+    var phonePattern = /^01[0-9]{9}$/;
+    if (!phonePattern.test(phone)) {
+        alert('يرجى إدخال رقم هاتف مصري صحيح (مثال: 01012345678)');
+        return;
+    }
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        alert('يرجى إدخال بريد إلكتروني صحيح');
+        return;
+    }
+
+    var whatsappNumber = '201025844231';
+
+    var msg = '\uD83D\uDCBC *طلب وظيفة جديد - شركة C0D*%0A%0A' +
+        '\uD83D\uDC64 *الاسم:* ' + name + '%0A' +
+        '\uD83D\uDCF1 *الهاتف:* ' + phone + '%0A' +
+        '\uD83D\uDCE7 *البريد:* ' + email + '%0A' +
+        '\uD83C\uDFAF *الوظيفة:* ' + position + '%0A' +
+        '\uD83D\uDCCA *الخبرة:* ' + experience + '%0A' +
+        '\uD83D\uDCCD *المدينة:* ' + city + '%0A%0A' +
+        '\uD83D\uDEE0\uFE0F *المهارات:*%0A' + skills + '%0A%0A' +
+        '\uD83D\uDD17 *المشاريع:* ' + portfolio + '%0A' +
+        '\uD83C\uDF93 *الشهادات:* ' + certificates + '%0A' +
+        '\uD83D\uDCC4 *السيرة الذاتية:* ' + cv + '%0A' +
+        '\uD83D\uDCBC *LinkedIn:* ' + linkedin + '%0A%0A' +
+        '\uD83D\uDCDD *رسالة إضافية:*%0A' + message;
+
+    try {
+        window.open('https://wa.me/' + whatsappNumber + '?text=' + msg, '_blank');
+    } catch (error) {
+        alert('حدث خطأ أثناء محاولة فتح واتساب. يرجى المحاولة مرة أخرى.');
+        console.error('WhatsApp error:', error);
+    }
+}
+
+var jobForm = document.getElementById('jobApplicationForm');
+if (jobForm) {
+    jobForm.addEventListener('submit', sendJobApplicationToWhatsApp);
+}
