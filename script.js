@@ -385,3 +385,153 @@ var jobForm = document.getElementById('jobApplicationForm');
 if (jobForm) {
     jobForm.addEventListener('submit', sendJobApplicationToWhatsApp);
 }
+
+var openDevFormBtn = document.getElementById('openDevForm');
+var devFormWrapper = document.getElementById('devFormWrapper');
+var openSalesFormBtn = document.getElementById('openSalesForm');
+var salesFormWrapper = document.getElementById('salesFormWrapper');
+
+function toggleJobForm(btn, wrapper) {
+    if (!btn || !wrapper) return;
+    var isOpen = wrapper.classList.contains('active');
+    var originalText = btn.getAttribute('data-original-text') || btn.innerHTML;
+    if (!btn.getAttribute('data-original-text')) btn.setAttribute('data-original-text', originalText);
+    if (isOpen) {
+        wrapper.classList.remove('active');
+        btn.innerHTML = originalText;
+        btn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+        wrapper.classList.add('active');
+        btn.innerHTML = '<i class="fas fa-times" aria-hidden="true"></i> إغلاق النموذج';
+        setTimeout(function() {
+            wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+    }
+}
+
+if (openDevFormBtn && devFormWrapper) {
+    openDevFormBtn.addEventListener('click', function() {
+        toggleJobForm(openDevFormBtn, devFormWrapper);
+    });
+}
+
+if (openSalesFormBtn && salesFormWrapper) {
+    openSalesFormBtn.addEventListener('click', function() {
+        toggleJobForm(openSalesFormBtn, salesFormWrapper);
+    });
+}
+
+function getFormValue(id) {
+    var el = document.getElementById(id);
+    return el ? el.value.trim() : '';
+}
+
+function validatePhone(phone) {
+    return /^01[0-9]{9}$/.test(phone);
+}
+
+function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function sendDevApplication(event) {
+    event.preventDefault();
+    var name = getFormValue('devName');
+    var phone = getFormValue('devPhone');
+    var email = getFormValue('devEmail');
+    var position = getFormValue('devPosition');
+    var experience = getFormValue('devExperience');
+    var city = getFormValue('devCity');
+    var skills = getFormValue('devSkills');
+    var portfolio = getFormValue('devPortfolio');
+    var certificates = getFormValue('devCertificates') || 'غير محدد';
+    var cv = getFormValue('devCV');
+    var linkedin = getFormValue('devLinkedIn') || 'غير محدد';
+    var message = getFormValue('devMessage') || 'لا يوجد';
+
+    if (!name || !phone || !email || !position || !experience || !city || !skills || !portfolio || !cv) {
+        alert('يرجى ملء جميع الحقول الإلزامية (*)');
+        return;
+    }
+    if (!validatePhone(phone)) {
+        alert('يرجى إدخال رقم هاتف مصري صحيح (مثال: 01012345678)');
+        return;
+    }
+    if (!validateEmail(email)) {
+        alert('يرجى إدخال بريد إلكتروني صحيح');
+        return;
+    }
+
+    var msg = '\uD83D\uDCBB *طلب وظيفة مبرمج - C0D*%0A%0A' +
+        '\uD83D\uDC64 *الاسم:* ' + name + '%0A' +
+        '\uD83D\uDCF1 *الهاتف:* ' + phone + '%0A' +
+        '\uD83D\uDCE7 *البريد:* ' + email + '%0A' +
+        '\uD83C\uDFAF *التخصص:* ' + position + '%0A' +
+        '\uD83D\uDCCA *الخبرة:* ' + experience + '%0A' +
+        '\uD83D\uDCCD *المدينة:* ' + city + '%0A%0A' +
+        '\uD83D\uDEE0\uFE0F *المهارات:*%0A' + skills + '%0A%0A' +
+        '\uD83D\uDD17 *المشاريع:* ' + portfolio + '%0A' +
+        '\uD83C\uDF93 *الشهادات:* ' + certificates + '%0A' +
+        '\uD83D\uDCC4 *السيرة الذاتية:* ' + cv + '%0A' +
+        '\uD83D\uDCBC *LinkedIn:* ' + linkedin + '%0A%0A' +
+        '\uD83D\uDCDD *رسالة إضافية:*%0A' + message;
+
+    try {
+        window.open('https://wa.me/201025844231?text=' + msg, '_blank');
+    } catch (err) {
+        alert('حدث خطأ أثناء فتح واتساب. حاول مرة أخرى.');
+        console.error(err);
+    }
+}
+
+function sendSalesApplication(event) {
+    event.preventDefault();
+    var name = getFormValue('salesName');
+    var phone = getFormValue('salesPhone');
+    var email = getFormValue('salesEmail');
+    var city = getFormValue('salesCity');
+    var age = getFormValue('salesAge');
+    var experience = getFormValue('salesExperience');
+    var education = getFormValue('salesEducation');
+    var skills = getFormValue('salesSkills');
+    var cv = getFormValue('salesCV');
+    var why = getFormValue('salesWhy');
+
+    if (!name || !phone || !email || !city || !age || !experience || !education || !skills || !cv || !why) {
+        alert('يرجى ملء جميع الحقول الإلزامية (*)');
+        return;
+    }
+    if (!validatePhone(phone)) {
+        alert('يرجى إدخال رقم هاتف مصري صحيح (مثال: 01012345678)');
+        return;
+    }
+    if (!validateEmail(email)) {
+        alert('يرجى إدخال بريد إلكتروني صحيح');
+        return;
+    }
+
+    var msg = '\uD83D\uDCBC *طلب وظيفة Sales - C0D*%0A%0A' +
+        '\uD83D\uDC64 *الاسم:* ' + name + '%0A' +
+        '\uD83D\uDCF1 *الهاتف:* ' + phone + '%0A' +
+        '\uD83D\uDCE7 *البريد:* ' + email + '%0A' +
+        '\uD83D\uDCCD *المدينة:* ' + city + '%0A' +
+        '\uD83C\uDF82 *السن:* ' + age + '%0A' +
+        '\uD83D\uDCCA *الخبرة:* ' + experience + '%0A' +
+        '\uD83C\uDF93 *المؤهل:* ' + education + '%0A%0A' +
+        '\uD83D\uDEE0\uFE0F *المهارات:*%0A' + skills + '%0A%0A' +
+        '\uD83D\uDCC4 *السيرة الذاتية:* ' + cv + '%0A%0A' +
+        '\uD83D\uDCDD *لماذا تريدين الانضمام:*%0A' + why;
+
+    try {
+        window.open('https://wa.me/201025844231?text=' + msg, '_blank');
+    } catch (err) {
+        alert('حدث خطأ أثناء فتح واتساب. حاول مرة أخرى.');
+        console.error(err);
+    }
+}
+
+var devForm = document.getElementById('devApplicationForm');
+if (devForm) devForm.addEventListener('submit', sendDevApplication);
+
+var salesForm = document.getElementById('salesApplicationForm');
+if (salesForm) salesForm.addEventListener('submit', sendSalesApplication);
