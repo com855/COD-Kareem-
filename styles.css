@@ -2014,3 +2014,103 @@ body::before {
     .opening-item span { font-size: 0.72rem; }
     .job-form-wrapper { padding: 18px 14px; }
 } 
+
+.hero-cta-main {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 16px;
+}
+
+.hero-cta-sub {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-hero-sub {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 24px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    backdrop-filter: blur(14px);
+    font-family: var(--font-heading);
+}
+
+.btn-hero-sub.dev {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.18) 0%, rgba(138, 43, 226, 0.1) 100%);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    color: #93c5fd;
+}
+
+.btn-hero-sub.dev:hover,
+.btn-hero-sub.dev:focus-visible {
+    background: linear-gradient(135deg, rgba(96, 165, 250, 0.32) 0%, rgba(138, 43, 226, 0.2) 100%);
+    border-color: #60a5fa;
+    color: #bfdbfe;
+    box-shadow: 0 8px 24px rgba(96, 165, 250, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-hero-sub.sales {
+    background: linear-gradient(135deg, rgba(255, 45, 212, 0.18) 0%, rgba(138, 43, 226, 0.1) 100%);
+    border: 1px solid rgba(255, 45, 212, 0.4);
+    color: #f0abfc;
+}
+
+.btn-hero-sub.sales:hover,
+.btn-hero-sub.sales:focus-visible {
+    background: linear-gradient(135deg, rgba(255, 45, 212, 0.32) 0%, rgba(138, 43, 226, 0.2) 100%);
+    border-color: var(--accent-pink);
+    color: #fbcfe8;
+    box-shadow: 0 8px 24px rgba(255, 45, 212, 0.3);
+    transform: translateY(-2px);
+}
+
+.dev-badge {
+    background: rgba(96, 165, 250, 0.15);
+    border-color: rgba(96, 165, 250, 0.4);
+    color: #93c5fd;
+}
+
+.sales-card {
+    border-color: rgba(255, 45, 212, 0.35);
+    box-shadow: 0 0 40px rgba(255, 45, 212, 0.12);
+}
+
+.sales-openings {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.sales-apply-btn {
+    background: linear-gradient(135deg, rgba(255, 45, 212, 0.25) 0%, rgba(138, 43, 226, 0.15) 100%);
+}
+
+.sales-submit-btn {
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.2) 0%, rgba(255, 45, 212, 0.1) 100%);
+}
+
+.sales-submit-btn:hover {
+    background: linear-gradient(135deg, rgba(37, 211, 102, 0.35) 0%, rgba(255, 45, 212, 0.2) 100%);
+}
+
+@media (max-width: 768px) {
+    .hero-cta-sub {
+        flex-direction: column;
+        width: 100%;
+        align-items: stretch;
+    }
+    .btn-hero-sub {
+        justify-content: center;
+        width: 100%;
+    }
+    .sales-openings {
+        grid-template-columns: 1fr;
+    }
+} 
